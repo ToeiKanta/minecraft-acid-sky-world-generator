@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="acidworldgenerator" default="all">
+  
+  
+  <property file="acidworldgenerator.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+    <include name="*.ane"/>
+    <include name="*.klib"/>
+    <include name="*.swc"/>
+    <include name="*.war"/>
+    <include name="*.zip"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/ext/access-bridge-64.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunmscapi.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.maven:_com.google.code.findbugs:annotations:3.0.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/google/code/findbugs/annotations/3.0.0/annotations-3.0.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.google.code.findbugs:jsr305:1.3.9.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.google.code.gson:gson:2.8.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/google/code/gson/gson/2.8.0/gson-2.8.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.google.guava:guava:21.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/google/guava/guava/21.0/guava-21.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.googlecode.json-simple:json-simple:1.1.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.sk89q.worldedit.worldedit-libs:bukkit:7.1.0-snapshot.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/sk89q/worldedit/worldedit-libs/bukkit/7.1.0-SNAPSHOT/bukkit-7.1.0-20200124.124522-64.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.sk89q.worldedit.worldedit-libs:core:7.1.0-snapshot.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/sk89q/worldedit/worldedit-libs/core/7.1.0-SNAPSHOT/core-7.1.0-20200124.124522-64.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.sk89q.worldedit:worldedit-bukkit:7.1.0-snapshot.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/sk89q/worldedit/worldedit-bukkit/7.1.0-SNAPSHOT/worldedit-bukkit-7.1.0-20200124.124522-64.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.sk89q.worldedit:worldedit-core:7.1.0-snapshot.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/sk89q/worldedit/worldedit-core/7.1.0-SNAPSHOT/worldedit-core-7.1.0-20200124.124522-64.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-codec:commons-codec:1.11.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-codec/commons-codec/1.11/commons-codec-1.11.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-lang:commons-lang:2.6.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>
+  </path>
+  
+  <path id="library.maven:_de.schlichtherle:truezip:6.8.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/de/schlichtherle/truezip/6.8.3/truezip-6.8.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_io.papermc:paperlib:1.0.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/io/papermc/paperlib/1.0.2/paperlib-1.0.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_it.unimi.dsi:fastutil:8.2.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/it/unimi/dsi/fastutil/8.2.1/fastutil-8.2.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.inject:javax.inject:1.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/inject/javax.inject/1/javax.inject-1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.dev.jna:jna:4.1.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/dev/jna/jna/4.1.0/jna-4.1.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truecommons:truecommons-annotations:2.5.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truecommons/truecommons-annotations/2.5.0/truecommons-annotations-2.5.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truecommons:truecommons-cio:2.5.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truecommons/truecommons-cio/2.5.0/truecommons-cio-2.5.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truecommons:truecommons-io:2.5.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truecommons/truecommons-io/2.5.0/truecommons-io-2.5.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truecommons:truecommons-key-console:2.5.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truecommons/truecommons-key-console/2.5.0/truecommons-key-console-2.5.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truecommons:truecommons-key-default:2.5.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truecommons/truecommons-key-default/2.5.0/truecommons-key-default-2.5.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truecommons:truecommons-key-macosx:2.5.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truecommons/truecommons-key-macosx/2.5.0/truecommons-key-macosx-2.5.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truecommons:truecommons-key-spec:2.5.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truecommons/truecommons-key-spec/2.5.0/truecommons-key-spec-2.5.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truecommons:truecommons-key-swing:2.5.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truecommons/truecommons-key-swing/2.5.0/truecommons-key-swing-2.5.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truecommons:truecommons-logging:2.5.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truecommons/truecommons-logging/2.5.0/truecommons-logging-2.5.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truecommons:truecommons-services:2.5.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truecommons/truecommons-services/2.5.0/truecommons-services-2.5.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truecommons:truecommons-shed:2.5.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truecommons/truecommons-shed/2.5.0/truecommons-shed-2.5.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-access-swing:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-access-swing/0.12.1/truevfs-access-swing-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-access:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-access/0.12.1/truevfs-access-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-comp-ibm437:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-comp-ibm437/0.12.1/truevfs-comp-ibm437-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-comp-tardriver:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-comp-tardriver/0.12.1/truevfs-comp-tardriver-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-comp-zip:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-comp-zip/0.12.1/truevfs-comp-zip-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-comp-zipdriver:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-comp-zipdriver/0.12.1/truevfs-comp-zipdriver-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-driver-file:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-driver-file/0.12.1/truevfs-driver-file-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-driver-http:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-driver-http/0.12.1/truevfs-driver-http-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-driver-jar:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-driver-jar/0.12.1/truevfs-driver-jar-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-driver-odf:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-driver-odf/0.12.1/truevfs-driver-odf-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-driver-tar-bzip2:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-driver-tar-bzip2/0.12.1/truevfs-driver-tar-bzip2-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-driver-tar-gzip:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-driver-tar-gzip/0.12.1/truevfs-driver-tar-gzip-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-driver-tar-xz:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-driver-tar-xz/0.12.1/truevfs-driver-tar-xz-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-driver-tar:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-driver-tar/0.12.1/truevfs-driver-tar-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-driver-zip-raes:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-driver-zip-raes/0.12.1/truevfs-driver-zip-raes-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-driver-zip:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-driver-zip/0.12.1/truevfs-driver-zip-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-kernel-impl_2.13:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-kernel-impl_2.13/0.12.1/truevfs-kernel-impl_2.13-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-kernel-spec:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-kernel-spec/0.12.1/truevfs-kernel-spec-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-profile-base_2.13:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-profile-base_2.13/0.12.1/truevfs-profile-base_2.13-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.java.truevfs:truevfs-profile-default_2.13:0.12.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/java/truevfs/truevfs-profile-default_2.13/0.12.1/truevfs-profile-default_2.13-0.12.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_net.md-5:bungeecord-chat:1.15-snapshot.classpath">
+    <pathelement location="${path.variable.maven_repository}/net/md-5/bungeecord-chat/1.15-SNAPSHOT/bungeecord-chat-1.15-20200325.072212-62.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.antlr:antlr4-runtime:4.7.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/antlr/antlr4-runtime/4.7.2/antlr4-runtime-4.7.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.commons:commons-compress:1.19.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-compress/1.19/commons-compress-1.19.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.httpcomponents:httpclient:4.5.10.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/httpcomponents/httpclient/4.5.10/httpclient-4.5.10.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.httpcomponents:httpcore:4.4.12.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/httpcomponents/httpcore/4.4.12/httpcore-4.4.12.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.logging.log4j:log4j-api:2.8.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/logging/log4j/log4j-api/2.8.1/log4j-api-2.8.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apache.logging.log4j:log4j-slf4j-impl:2.8.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apache/logging/log4j/log4j-slf4j-impl/2.8.1/log4j-slf4j-impl-2.8.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bouncycastle:bcprov-jdk15on:1.63.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bouncycastle/bcprov-jdk15on/1.63/bcprov-jdk15on-1.63.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bstats:bstats-bukkit:1.7.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bstats/bstats-bukkit/1.7/bstats-bukkit-1.7.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.bukkit:bukkit:1.13.2-r0.1-snapshot.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/bukkit/bukkit/1.13.2-R0.1-SNAPSHOT/bukkit-1.13.2-R0.1-20190423.030918-214.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.mozilla:rhino:1.7.11.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/mozilla/rhino/1.7.11/rhino-1.7.11.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.scala-lang:scala-library:2.13.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/scala-lang/scala-library/2.13.1/scala-library-2.13.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.slf4j:jcl-over-slf4j:1.7.28.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/jcl-over-slf4j/1.7.28/jcl-over-slf4j-1.7.28.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.slf4j:slf4j-api:1.7.26.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/slf4j-api/1.7.26/slf4j-api-1.7.26.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.spigotmc:spigot-api:1.15.2-r0.1-snapshot.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/spigotmc/spigot-api/1.15.2-R0.1-SNAPSHOT/spigot-api-1.15.2-R0.1-20200410.011959-86.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.tukaani:xz:1.8.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/tukaani/xz/1.8/xz-1.8.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.yaml:snakeyaml:1.25.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/yaml/snakeyaml/1.25/snakeyaml-1.25.jar"/>
+  </path>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <fileset dir="${javac2.home}">
+      <include name="javac2.jar"/>
+      <include name="jdom.jar"/>
+      <include name="asm-all*.jar"/>
+      <include name="forms-*.jar"/>
+    </fileset>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  <import file="${basedir}/module_acidworldgenerator.xml"/>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.acidworldgenerator" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.acidworldgenerator" description="build all modules"/>
+  
+  <target name="all" depends="build.modules" description="build all"/>
+</project>

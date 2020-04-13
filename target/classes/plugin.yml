@@ -1,0 +1,6 @@
+name: AcidWorldGenerator
+version: 1.0-SNAPSHOT
+main: com.toeikanta.acidworldgenerator.AcidWorldGenerator
+api-version: 1.13
+authors: [ToeiKanta]
+description: this plugin create world like AcidIsland
