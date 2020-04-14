@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -75,19 +74,22 @@ public class AcidEffect implements Listener {
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onPlayerMove(PlayerMoveEvent e) {
         Player player = e.getPlayer();
+        while (player == null){
+            addon.logger.info("player not found");
+        }
         // Fast checks
+        Location playerLoc = player.getLocation();
         if ((addon.getSettings().getAcidRainDamage() == 0 && addon.getSettings().getAcidDamage() == 0)
                 || player.isDead()
                 || player.getGameMode().equals(GameMode.CREATIVE)
                 || player.getGameMode().equals(GameMode.SPECTATOR)
-                || (!player.isOp() && player.hasPermission("acidisland.mod.noburn"))
-                || (player.isOp() && !addon.getSettings().isAcidDamageOp())) {
+                || playerLoc.getWorld() != addon.getOverWorld()) {
             return;
         }
         // Slow checks
-        Location playerLoc = player.getLocation();
+
         // Check for acid rain
-        if (addon.getSettings().getAcidRainDamage() > 0D && addon.getOverWorld().hasStorm()) {
+        if (addon.getSettings().getAcidRainDamage() > 0D) { //  && addon.getOverWorld().hasStorm()
             if (isSafeFromRain(player)) {
                 wetPlayers.remove(player);
             } else if (!wetPlayers.containsKey(player)) {
@@ -159,7 +161,7 @@ public class AcidEffect implements Listener {
                     }
                 }
             }
-        }.runTaskTimer(addon.getPlugin(), 0L, 20L);
+        }.runTaskTimer(addon, 0L, 20L);
     }
 
     /**
