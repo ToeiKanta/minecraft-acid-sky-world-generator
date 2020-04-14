@@ -7,17 +7,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.stream.Stream;
-
-import com.sk89q.worldedit.bukkit.BukkitWorld;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Animals;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.MagmaCube;
 import org.bukkit.entity.Monster;
 
 public class AcidTask {
@@ -68,42 +63,8 @@ public class AcidTask {
      */
     private Stream<Entity> getEntityStream() {
         Stream<Entity> entityStream = addon.getOverWorld().getEntities().stream();
-
-        // Nether and end
-//        if (addon.getSettings().isNetherGenerate() && addon.getSettings().isNetherIslands()) {
-//            entityStream = Stream.concat(entityStream, addon.getNetherWorld().getEntities().stream());
-//        }
-//        if (addon.getSettings().isEndGenerate() && addon.getSettings().isEndIslands()) {
-//            entityStream = Stream.concat(entityStream, addon.getEndWorld().getEntities().stream());
-//        }
         return entityStream;
     }
-
-    /**
-     * Start the item removal in acid task
-     */
-//    private void runAcidItemRemovalTask() {
-//        if (addon.getSettings().getAcidDestroyItemTime() <= 0) {
-//            return;
-//        }
-//        itemBurnTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(addon, () -> {
-//            Set<Entity> newItemsInWater = new HashSet<>();
-//            getEntityStream()
-//                    .filter(e -> e.getType().equals(EntityType.DROPPED_ITEM))
-//                    .filter(e -> e.getLocation().getChunk().isLoaded())
-//                    .filter(e -> e.getLocation().getBlock().getType().equals(Material.WATER)
-//                            || (e.getLocation().getY() > 0 && e.getLocation().getBlock().getRelative(BlockFace.DOWN).getType().equals(Material.WATER)))
-//                    .forEach(e -> {
-//                        if (itemsInWater.contains(e)) {
-//                            e.getWorld().playSound(e.getLocation(), Sound.ENTITY_CREEPER_PRIMED, 3F, 3F);
-//                            e.remove();
-//                        } else {
-//                            newItemsInWater.add(e);
-//                        }
-//                    });
-//            itemsInWater = newItemsInWater;
-//        }, addon.getSettings().getAcidDestroyItemTime() * 20L, addon.getSettings().getAcidDestroyItemTime() * 20L);
-//    }
 
     /**
      * Cancel tasks running

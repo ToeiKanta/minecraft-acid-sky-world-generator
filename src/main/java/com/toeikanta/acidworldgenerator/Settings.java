@@ -1,45 +1,28 @@
 package com.toeikanta.acidworldgenerator;
 
-import org.bukkit.Difficulty;
-import org.bukkit.entity.EntityType;
 import org.bukkit.potion.PotionEffectType;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 public class Settings {
     // ---------------------------------------------
-
-
+    private String worldName = "test10";
     /*      ACID        */
     private boolean acidDamageOp = true;
-
     private boolean acidDamageChickens = false;
-
     // Damage
-    private int acidDamage = 10;
-
+    private int acidDamage = 5;
     private int acidDamageMonster = 5;
-
     private int acidDamageAnimal = 1;
-
     private long acidDestroyItemTime = 0;
-
     private int acidRainDamage = 1;
-
-    private long acidDamageDelay = 2;
-
+    private long acidDamageDelay = 1;
     private List<PotionEffectType> acidEffects = new ArrayList<>();
-    private int acidEffectDuation = 30;
-
+    private int acidEffectDuation = 10;
     private List<PotionEffectType> acidRainEffects = new ArrayList<>();
     private boolean acidDamageSnow = false;
     private int rainEffectDuation = 10;
-
     private boolean helmetProtection = false;
-
     private boolean fullArmorProtection = true;
 
     public Settings(){
@@ -55,7 +38,8 @@ public class Settings {
         acidEffects.add(PotionEffectType.getByName("BLINDNESS"));
 
         acidRainEffects.add(PotionEffectType.getByName("POISON"));
-        acidEffects.add(PotionEffectType.getByName("BLINDNESS"));
+        acidRainEffects.add(PotionEffectType.getByName("WEAKNESS"));
+        acidRainEffects.add(PotionEffectType.getByName("SLOW"));
     }
 
     public int getAcidRainDamage() {
@@ -128,5 +112,9 @@ public class Settings {
 
     public boolean isFullArmorProtection() {
         return fullArmorProtection;
+    }
+
+    public String getWorldName() {
+        return worldName;
     }
 }
