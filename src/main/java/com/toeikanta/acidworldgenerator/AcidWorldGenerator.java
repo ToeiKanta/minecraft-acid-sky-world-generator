@@ -14,7 +14,10 @@ import java.util.logging.Logger;
 public final class AcidWorldGenerator extends JavaPlugin {
 
     Logger logger = Bukkit.getLogger();
-
+    Settings settings;
+    String worldName;
+    private World overWorld;
+    private AcidWorldGenerator plugin;
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -32,7 +35,20 @@ public final class AcidWorldGenerator extends JavaPlugin {
 
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
+        this.overWorld = Bukkit.getWorld(worldName);
+        this.worldName = worldName;
         return new LandGenerator(this);
     }
 
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public World getOverWorld() {
+        return overWorld;
+    }
+
+    public AcidWorldGenerator getPlugin() {
+        return plugin;
+    }
 }

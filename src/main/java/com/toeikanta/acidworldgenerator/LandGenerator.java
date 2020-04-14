@@ -1,17 +1,23 @@
 package com.toeikanta.acidworldgenerator;
 
+import com.sk89q.worldedit.EditSession;
+import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader;
+import com.sk89q.worldedit.function.operation.Operation;
+import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.session.ClipboardHolder;
 import com.sk89q.worldedit.world.block.BaseBlock;
 import com.sk89q.worldedit.world.block.BlockState;
 import com.sk89q.worldedit.world.registry.BlockMaterial;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Biome;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.util.BlockVector;
 
@@ -46,53 +52,50 @@ public class LandGenerator extends ChunkGenerator{
         return null;
     }
 
+
     @Override
     public ChunkData generateChunkData(World world, Random random, int x, int z, BiomeGrid biome) {
         ChunkData chunk = createChunkData(world);
-        //Water
-//        for(x=0;x<16;x++){
-//            for(z=0;z<16;z++){
-//                Clipboard clipboard = loadSchematic(new File(plugin.getDataFolder(),"island.schematic"));
-//                //chunk.getBlockData(x, 0, z, Material.BEDROCK);
-//                //chunk.setBlock(x, 1, z, Material.SAND);
-//                ///chunk.setBlock(X, currentHeight, Z, Material.GRASS);
-//                //chunk.setBlock(X, currentHeight-1, Z, Material.DIRT);
-//                BaseBlock block = clipboard.getBlock(new BlockVector(x, y, z));
-//                for (int i = currentHeight-2; i > 1; i--)
-//                    chunk.setBlock(x, i, z, Material.WATER);
-//            }
+        String islandName = "island.schematic";
+        Clipboard clipboard = loadSchematic(new File(plugin.getDataFolder(),islandName));
+        Boolean genIsland = new Random().nextInt(100-1)+1 < 5 ? true : false;
+//        int xRegion; //= Math.abs(x % 2);
+//        if (x % 2 == 0) {
+//            xRegion = 0;
+//        } else {
+//            xRegion = 1;
 //        }
-        // island
-        Clipboard clipboard = loadSchematic(new File(plugin.getDataFolder(),"island.schematic"));
-        //
-        int xRegion;
-        if (x % 2 == 0) {
-            xRegion = 0;
-        } else {
-            xRegion = 1;
-        }
-        //
-        int zRegion;
-        if (z % 2 == 0) {
-            zRegion = 0;
-        } else {
-            zRegion = 1;
-        }
+//        //
+//        int zRegion; //= Math.abs(z % 2);
+//        if (z % 2 == 0) {
+//            zRegion = 0;
+//        } else {
+//            zRegion = 1;
+//        }
+        //init
+        int highRand = new Random().nextInt(100-1)+1;
         for(x=0;x<16;x++){
-            int xBlock = (xRegion * 16) + x;
+//            int xBlock = (xRegion * 16) + x;
             for(z=0;z<16;z++){
-                int zBlock = (zRegion * 16) + z;
+//                int zBlock = (zRegion * 16) + z;
                 for(int y=0;y<80;y++){
                     try {
-                        BaseBlock block = clipboard.getFullBlock(BlockVector3.at(xBlock, y, zBlock));
-                        Material material = BukkitAdapter.adapt(block.getBlockType());
-                        //plugin.logger.info(material.toString());
-                       // Material material = Material.getMaterial(block.getNbtId());
-                        chunk.setBlock(x, y, z, material);
+                        if(y<=clipboard.getMaximumPoint().getY() && genIsland){
+                            //BaseBlock block = clipboard.getFullBlock(BlockVector3.at(xBlock, y, zBlock));
+                            BaseBlock block = new ClipboardHolder(clipboard).getClipboard().getFullBlock(BlockVector3.at(x+5, y, z));
+                            Material material = BukkitAdapter.adapt(block.getBlockType());
+                            chunk.setBlock(x, y+currentHeight-9+highRand, z, material);
+                        }
+                        if(y<currentHeight){
+                            if(chunk.getType(x,y,z) == Material.AIR){
+                                chunk.setBlock(x,y,z,Material.WATER);
+                            }
+                        }
                     }catch (Exception ex){
                         //
                     }
                 }
+
             }
         }
         return chunk;
