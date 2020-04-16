@@ -48,8 +48,7 @@ public class LandGenerator extends ChunkGenerator{
     @Override
     public ChunkData generateChunkData(World world, Random random, int x, int z, BiomeGrid biome) {
         ChunkData chunk = createChunkData(world);
-        String islandName = "island.schematic";
-        Clipboard clipboard = loadSchematic(new File(plugin.getDataFolder(),islandName));
+        Clipboard clipboard = loadSchematic(new File(plugin.getDataFolder(),Settings.islandSchemName));
         Boolean genIsland = new Random().nextInt(100-1)+1 < 5 ? true : false;
 //        int xRegion; //= Math.abs(x % 2);
 //        if (x % 2 == 0) {

@@ -6,6 +6,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
+
+import java.io.File;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AcidWorldGenerator extends JavaPlugin{
@@ -13,7 +16,7 @@ public class AcidWorldGenerator extends JavaPlugin{
     Logger logger = Bukkit.getLogger();
     private static Settings settings;
     private static String worldName;
-    private static World overWorld;
+    private static World overWorld = null;
     private static AcidWorldGenerator plugin;
     private AcidTask acidTask;
 
@@ -23,6 +26,12 @@ public class AcidWorldGenerator extends JavaPlugin{
         settings = new Settings();
         worldName = settings.getWorldName();
         BukkitScheduler scheduler = getServer().getScheduler();
+        File dataFolder = new File(plugin.getDataFolder(),this.getPlugin().getName());
+        if(!dataFolder.exists()){
+            logger.info("&bFolder does not exists, Creating!");
+            dataFolder.mkdir();
+            this.saveResource( settings.getIslandSchemName(), false);
+        }
         scheduler.scheduleSyncDelayedTask(this, new Runnable() {
             @Override
             public void run() {
@@ -31,12 +40,15 @@ public class AcidWorldGenerator extends JavaPlugin{
                 logger.info("AcidWorldGenerator: Enable AcidWorldGenerator");
                 logger.info("============================================");
                 overWorld = Bukkit.getWorld(AcidWorldGenerator.worldName);
-
-//                Bukkit.getPluginManager().registerEvents(plugin, plugin);
-                // Acid Effects
-                registerListener(new AcidEffect(plugin));
-                // Burn everything
-                acidTask = new AcidTask(plugin);
+                if(overWorld != null){
+                    //                Bukkit.getPluginManager().registerEvents(plugin, plugin);
+                    // Acid Effects
+                    registerListener(new AcidEffect(plugin));
+                    // Burn everything
+                    acidTask = new AcidTask(plugin);
+                }else{
+                    logger.log(Level.SEVERE, worldName + " NotFound!! please create with multiverse-core and rerun server.");
+                }
             }
         }, 20L);
 
