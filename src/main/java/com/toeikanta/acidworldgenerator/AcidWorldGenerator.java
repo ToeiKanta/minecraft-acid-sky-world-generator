@@ -26,7 +26,7 @@ public class AcidWorldGenerator extends JavaPlugin{
         settings = new Settings();
         worldName = settings.getWorldName();
         BukkitScheduler scheduler = getServer().getScheduler();
-        File dataFolder = new File(plugin.getDataFolder(),this.getPlugin().getName());
+        File dataFolder = new File(plugin.getDataFolder() + File.separator + this.getPlugin().getName());
         if(!dataFolder.exists()){
             logger.info("&bFolder does not exists, Creating!");
             dataFolder.mkdir();
