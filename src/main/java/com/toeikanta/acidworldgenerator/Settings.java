@@ -7,7 +7,7 @@ import java.util.List;
 public class Settings {
     // ---------------------------------------------
     private String worldName = "acid_sky_world";
-    public static String islandSchemName = "island-skyblock.schematic";
+    public static int islandNum = 4;
     /*      ACID        */
     private boolean acidDamageOp = true;
     private boolean acidDamageChickens = false;
@@ -117,9 +117,5 @@ public class Settings {
 
     public String getWorldName() {
         return worldName;
-    }
-
-    public String getIslandSchemName() {
-        return islandSchemName;
     }
 }

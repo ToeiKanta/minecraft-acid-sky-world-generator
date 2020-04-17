@@ -30,7 +30,8 @@ public class AcidWorldGenerator extends JavaPlugin{
         if(!dataFolder.exists()){
             logger.info("&bFolder does not exists, Creating!");
             dataFolder.mkdir();
-            this.saveResource( settings.getIslandSchemName(), false);
+            for(int i=1;i<=Settings.islandNum;i++)
+                this.saveResource( "island"+i+".schem", false);
         }
         scheduler.scheduleSyncDelayedTask(this, new Runnable() {
             @Override

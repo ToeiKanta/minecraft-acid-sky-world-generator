@@ -54,7 +54,7 @@ public class LandGenerator extends ChunkGenerator{
         ChunkData chunk = createChunkData(world);
         Clipboard clipboard = null;
         try {
-            clipboard = loadSchematic(new File(plugin.getDataFolder(), Settings.islandSchemName));
+            clipboard = loadSchematic(new File(plugin.getDataFolder(),"island" + (new Random().nextInt(Settings.islandNum-1)+1) + ".schem"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,11 +86,11 @@ public class LandGenerator extends ChunkGenerator{
                 for(int y=0;y<80;y++){
                     try {
                         if(y<=clipboard.getMaximumPoint().getY() && genIsland){
-                            BaseBlock block = clipboard.getFullBlock(getCoordSchem(clipboard,x+5, y, z));
+                            BaseBlock block = clipboard.getFullBlock(getCoordSchem(clipboard,x, y, z));
                             BlockData blockData = BukkitAdapter.adapt(block);
 //                            if(blockData.getAsString().contains("LEAVES")){
 //                                blockData = (Leaves) blockData;
-                                ((Leaves) blockData).setPersistent(false);
+                               // ((Leaves) blockData).setPersistent(false);
 //                                plugin.logger.info("xxx = " + blockData.toString());
 //                            }
                             chunk.setBlock(x, y+currentHeight-9+highRand, z, blockData);
