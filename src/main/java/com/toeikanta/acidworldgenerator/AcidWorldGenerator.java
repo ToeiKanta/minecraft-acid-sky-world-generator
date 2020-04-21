@@ -26,20 +26,20 @@ public class AcidWorldGenerator extends JavaPlugin{
         settings = new Settings();
         worldName = settings.getWorldName();
         BukkitScheduler scheduler = getServer().getScheduler();
-        File dataFolder = new File(plugin.getDataFolder() + File.separator + this.getPlugin().getName());
+        File dataFolder = new File(plugin.getDataFolder() , plugin.getDataFolder().getName());
         if(!dataFolder.exists()){
             logger.info("&bFolder does not exists, Creating!");
             dataFolder.mkdir();
             for(int i=1;i<=Settings.islandNum;i++)
                 this.saveResource( "island"+i+".schem", false);
         }
+        // Plugin startup logic
+        logger.info("=============================================");
+        logger.info("AcidWorldGenerator: Enable AcidWorldGenerator");
+        logger.info("============================================");
         scheduler.scheduleSyncDelayedTask(this, new Runnable() {
             @Override
             public void run() {
-                // Plugin startup logic
-                logger.info("=============================================");
-                logger.info("AcidWorldGenerator: Enable AcidWorldGenerator");
-                logger.info("============================================");
                 overWorld = Bukkit.getWorld(AcidWorldGenerator.worldName);
                 if(overWorld != null){
                     //                Bukkit.getPluginManager().registerEvents(plugin, plugin);
@@ -47,6 +47,7 @@ public class AcidWorldGenerator extends JavaPlugin{
                     registerListener(new AcidEffect(plugin));
                     // Burn everything
                     acidTask = new AcidTask(plugin);
+                    logger.info(Level.SEVERE, worldName + " turn on Acid .");
                 }else{
                     logger.log(Level.SEVERE, worldName + " NotFound!! please create with multiverse-core and rerun server.");
                 }
