@@ -47,7 +47,7 @@ public class AcidWorldGenerator extends JavaPlugin{
                     registerListener(new AcidEffect(plugin));
                     // Burn everything
                     acidTask = new AcidTask(plugin);
-                    logger.info(Level.SEVERE, worldName + " turn on Acid .");
+                    logger.info(worldName + " turn on Acid .");
                 }else{
                     logger.log(Level.SEVERE, worldName + " NotFound!! please create with multiverse-core and rerun server.");
                 }
